@@ -47,7 +47,7 @@ const resolvers = {
     Mutation: {
         signupUser: async (_, { userNew }) => {
             const user = await prisma.user.findUnique({ where: { email: userNew.email } })
-            if (user) throw new AuthenticationError("User already exists with that email")
+            if (user) throw new AuthenticationError("User already exists")
             const hashedPassword = await bcrypt.hash(userNew.password, 10)
             const newUser = await prisma.user.create({
                 data: {
